@@ -3,8 +3,9 @@
     <h1>{{ msg }}</h1>
     <p>
       <a v-on:click="clickme">Click Me</a>
-      <input placeholder="Input a Number">
+      <input placeholder="Input a Number" v-model="message">
       <br/>
+
     </p>
   </div>
 </template>
@@ -18,10 +19,15 @@ export default {
   props: {
     msg: String
   },
+  data: function() {
+    return {
+      message: ""
+    }
+  },
   methods:{
     clickme: function(){
       var t = new Date().toLocaleString();
-      invoke('my_custom_command', {msg: " From Click Me" + t }).then((retMsg)=> console.log(retMsg))
+      invoke('my_custom_command', {msg: t }).then((retMsg)=> this.message = retMsg)
     }
   }
 }
